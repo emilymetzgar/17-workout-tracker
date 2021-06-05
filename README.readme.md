@@ -17,7 +17,13 @@ Run the following seed command in your terminal to add seed workouts:
 Start the local server and open localhost:8080 in your browser:
 
  node server.js
-Live App
+## Usage
+
+Open browser and go to URL https://localhost:3000
+
+![A screenshot of the application](./public/screenshot.PNG)
+
+
 Link to the live application is here.
 
 ## Credits
