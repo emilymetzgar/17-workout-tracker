@@ -1,11 +1,84 @@
-//"/api/workouts according to api.js is a GET/POST/DELETE route (dumb that it does that)
-//"/api/workouts/:id" is a put route and "/api/workouts/range" is a get route"
-//so router.get("/api/workouts..." router.post("/api/workouts"....")
-//this is for updating, posting, putting, getting, delete, manipulating the database routes
+  
 const router = require('express').Router();
+const Workout = require('../models/Workout');
 
-// this will get the workouts data
 
+// Create a new workout
+router.post('/api/workouts', (req, res) => {
+    Workout.create({})
+    .then(workoutDB => {
+        console.log(workoutDB);
+        res.json(workoutDB);
+    })
+    .catch(err => {
+        console.log(err)
+        res.json(err);
+    });
+});
+
+// Update existing workout
+router.put('/api/workouts/:id', (req, res) => {
+    Workout.findByIdAndUpdate(
+        req.params.id,
+        { $push: { exercise: req.body } },
+        { new: true, runValidators: true }
+    )
+    .then(workoutDB => {
+        res.json(workoutDB)
+    })
+    .catch(err => {
+        res.json(err);
+    });
+});
+
+// get all workouts, add exercise duration
 router.get('/api/workouts', (req, res) => {
+    Workout.aggregate([
+        {
+            $addFields: {
+                totalDuration: {
+                    $sum: '$exercise.duration',
+                },
+            },
+        },
+    ])
+    .then(workoutDB => {
+        res.json(workoutDB);
+    })
+    .catch(err => {
+        res.json(err);
+    });
+});
 
-    findBy
+router.get('/api/workouts/range', (req, res) => {
+    Workout.aggregate([
+        {
+            $addFields: {
+                totalDuration: {
+                    $sum: '$exercise.duration',
+                },
+            },
+        },
+    ])
+    .sort({ _id: -1 })
+    .limit(7)
+    .then(workoutDB => {
+        console.log(workoutDB);
+        res.json(workoutDB);
+    })
+    .catch(err => {
+        res.json(err);
+    });
+});
+
+router.delete('/api/workouts', ({ body }, res) => {
+    Workout.findByIdAndDelete(body.id)
+    .then(() => {
+        res.json(true);
+    })
+    .catch(err => {
+        res.json(err);
+    });
+});
+
+module.exports = router;
