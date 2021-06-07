@@ -10,7 +10,7 @@ Open your terminal and install dependencies with:
 
  npm install
 
-Run the following seed command in your terminal to add seed workouts:
+Run the following seed command in your terminal to seed workouts:
 
  node seeders/seed.js
 
