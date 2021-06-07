@@ -24,7 +24,7 @@ Open browser and go to URL https://localhost:3000
 ![A screenshot of the application](./public/screenshot.PNG)
 
 
-Link to the live application is here.
+Link to the live application is here: https://serene-hollows-10449.herokuapp.com/
 
 ## Credits
 
