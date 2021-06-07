@@ -1,6 +1,6 @@
   
 const router = require('express').Router();
-const Workout = require('../models/Workout.js');
+const Workout = require('../models/Workout');
 
 
 // Create a new workout
